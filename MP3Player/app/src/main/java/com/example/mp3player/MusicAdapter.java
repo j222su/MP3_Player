@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +44,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MusicViewHolder holder, final int position) {
 //        list=new ArrayList<MusicData>();
 //        Bitmap albumImage = getAlbumImage(, Integer.parseInt(list.get(position).getAlbumId()), 170);
 //        holder.imgAlbum.setImageBitmap(albumImage);
@@ -56,6 +57,14 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 
         String time=simpleDateFormat.format(list.get(position).getTotal());
         holder.tvTotal.setText(time);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int positionNum=holder.getAdapterPosition();
+                Toast.makeText(v.getContext(), positionNum+list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

@@ -10,6 +10,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private MusicAdapter musicAdapter;
     MusicData musicData=new MusicData();
+    ImageView mImgAlbum;
+    TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
+    ImageButton btnPrevious, btnPlay, btnNext;
+    SeekBar seekBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
-
+        mImgAlbum=findViewById(R.id.mImgAlbum);
+        mTvSinger=findViewById(R.id.mTvSinger);
+        mTvTitle=findViewById(R.id.mTvTitle);
+        mTvProgress=findViewById(R.id.mTvProgress);
+        mTvTotalProgress=findViewById(R.id.mTvTotalProgress);
+        btnPrevious=findViewById(R.id.btnPrevious);
+        btnPlay=findViewById(R.id.btnPlay);
+        btnNext=findViewById(R.id.btnNext);
         ActivityCompat.requestPermissions(this, new String[]
                 {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
 
@@ -39,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         musicAdapter = new MusicAdapter(R.layout.list_item, list);
         recyclerView.setAdapter(musicAdapter);
+
+
 
     }
 
