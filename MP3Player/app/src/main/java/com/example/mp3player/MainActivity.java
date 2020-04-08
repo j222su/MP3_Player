@@ -25,12 +25,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    public static ArrayList<MusicData> list;
+    private ArrayList<MusicData> list=new ArrayList<>();
+    //new ArrayList<>();로 객체를 생성해줘야 함 그렇지 않으면 객체를 생성하지 못해서 list에 데이터를 추가할 수 없다...
     private LinearLayoutManager linearLayoutManager;
     private MusicAdapter musicAdapter;
-
-//    String selectedMP3;
-//    String mp3Path = Environment.getExternalStorageDirectory().getPath() + "/";
+    MusicData musicData=new MusicData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private void getMusicList() {
         ContentResolver contentResolver = getContentResolver();
         // 음악 앱의 데이터베이스에 접근해서 mp3 정보들을 가져온다.
-        MusicData musicData=new MusicData();
+
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
         String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
