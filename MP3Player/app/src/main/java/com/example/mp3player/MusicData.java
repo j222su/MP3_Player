@@ -5,16 +5,17 @@ public class MusicData {
     private String albumId;
     private String title;
     private String artist;
+    private long total;
 
     public MusicData() {
     }
 
-    public MusicData(String id, String albumId, String title, String artist) {
+    public MusicData(String id, String albumId, String title, String artist, long total) {
         this.id = id;
         this.albumId = albumId;
         this.title = title;
         this.artist = artist;
-
+        this.total = total;
     }
 
     public String getId() {
@@ -47,6 +48,14 @@ public class MusicData {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 }
 

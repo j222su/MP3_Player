@@ -19,12 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
 
     int layout;
     public ArrayList<MusicData>list=new ArrayList<MusicData>();
+    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("mm:ss");
 
     public MusicAdapter(int layout, ArrayList<MusicData> list) {
         this.layout = layout;
@@ -47,6 +49,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 //        holder.imgAlbum.setImageBitmap(albumImage);
         holder.tvSinger.setText(list.get(position).getArtist());
         holder.tvTitle.setText(list.get(position).getTitle());
+
+
+        String time=simpleDateFormat.format(list.get(position).getTotal());
+        holder.tvTotal.setText(time);
+//        holder.tvTotal.setText(list.get(position).getTotal());
     }
 
 
