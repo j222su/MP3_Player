@@ -1,5 +1,7 @@
 package com.example.mp3player;
 
+import android.net.Uri;
+
 public class MusicData {
     private String id;
     private String albumId;
