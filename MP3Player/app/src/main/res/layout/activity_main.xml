@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imgAlbum"
+            android:id="@+id/mImgAlbum"
             android:layout_width="116dp"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher" />
@@ -39,14 +39,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvSinger"
+                android:id="@+id/mTvSinger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="가수"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/mTvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="제목"
