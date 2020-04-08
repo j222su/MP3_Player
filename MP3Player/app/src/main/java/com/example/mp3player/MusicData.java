@@ -1,44 +1,44 @@
 package com.example.mp3player;
 
 public class MusicData {
-    private String directory;
-    private String name;
+    private String id;
+    private String albumId;
+    private String title;
     private String artist;
-    private String album;
-    private String genre;
-    private String year;
-    private String duration;
-    private String track;
-    private String displayName;
-    private String albumArt;
 
-    public MusicData(String directory, String name, String artist, String album, String genre, String year, String duration, String track, String displayName, String albumArt) {
-        this.directory = directory;
-        this.name = name;
+    public MusicData() {
+    }
+
+    public MusicData(String id, String albumId, String title, String artist) {
+        this.id = id;
+        this.albumId = albumId;
+        this.title = title;
         this.artist = artist;
-        this.album = album;
-        this.genre = genre;
-        this.year = year;
-        this.duration = duration;
-        this.track = track;
-        this.displayName = displayName;
-        this.albumArt = albumArt;
+
     }
 
-    public String getDirectory() {
-        return directory;
+    public String getId() {
+        return id;
     }
 
-    public void setDirectory(String directory) {
-        this.directory = directory;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAlbumId() {
+        return albumId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getArtist() {
@@ -47,62 +47,6 @@ public class MusicData {
 
     public void setArtist(String artist) {
         this.artist = artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getTrack() {
-        return track;
-    }
-
-    public void setTrack(String track) {
-        this.track = track;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getAlbumArt() {
-        return albumArt;
-    }
-
-    public void setAlbumArt(String albumArt) {
-        this.albumArt = albumArt;
     }
 }
 
