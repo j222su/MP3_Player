@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton btnPrevious, btnPlay, btnNext;
     SeekBar seekBar;
     Intent intent;
+    int flag = 0;
 
 
     @Override
@@ -98,9 +99,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnPlay :
-                btnPlay.setImageResource(R.mipmap.pause);
+                if(flag==0) {
+                    btnPlay.setImageResource(R.mipmap.pause);
+                    startService(intent);
+                } else {
+                    btnPlay.setImageResource(R.mipmap.play);
+                    stopService(intent);
+                    flag=0;
+                }
+
                 break;
+
+            case R.id.btnPrevious :
+
+                break;
+            default:
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(intent);
+        super.onDestroy();
     }
 }
 
