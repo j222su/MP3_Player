@@ -2,19 +2,16 @@ package com.example.mp3player;
 
 import android.app.Service;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.IBinder;
 
-import androidx.annotation.Nullable;
+public class MusicService extends Service {
+    public MusicService() {
+    }
 
-class MusicService extends Service {
-
-    private MediaPlayer mediaPlayer;
-
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
