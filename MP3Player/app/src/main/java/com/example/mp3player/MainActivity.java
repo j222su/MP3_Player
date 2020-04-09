@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -110,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(flag==0) {
                     intent.putExtra("data_path", musicData.getDataPath());
                     Log.d(TAG, "플레이버튼 클릭 경로확인 :"+musicData.getDataPath());
-                    Log.d(TAG, "플레이버튼 클릭 : 2값 보내기");
                     btnPlay_Pause.setImageResource(R.mipmap.pause);
                     startService(intent);
                     Log.d(TAG, "플레이버튼 클릭 : startService(intent)");
