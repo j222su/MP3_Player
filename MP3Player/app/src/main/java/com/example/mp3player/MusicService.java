@@ -12,25 +12,10 @@ import java.io.IOException;
 public class MusicService extends Service {
 
     MediaPlayer mediaPlayer;
-    Intent intent;
+
 
 
     private static final String TAG = "MP3입니다.";
-
-    public MusicService() {
-    }
-
-    public MusicService(Intent intent) {
-        this.intent = intent;
-    }
-
-    public Intent getIntent() {
-        return intent;
-    }
-
-    public void setIntent(Intent intent) {
-        this.intent = intent;
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -54,8 +39,7 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "Service-onStartCommand()");
-//        intent=Intent.getIntent();
-        long dataSource = intent.getLongExtra("data_path",0);
+        String dataSource = intent.getStringExtra("data_path");
         Log.d(TAG, "Service-데이터경로:"+dataSource);
         return super.onStartCommand(intent, flags, startId);
     }
