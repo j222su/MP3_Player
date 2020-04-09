@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imgAlbum"
+            android:id="@+id/mImgAlbum"
             android:layout_width="116dp"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher" />
@@ -39,14 +39,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvSinger"
+                android:id="@+id/mTvSinger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="가수"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/mTvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="제목"
@@ -59,7 +59,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/btnPause"
+                    android:id="@+id/btnPrevious"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -75,7 +75,7 @@
                     android:src="@mipmap/play" />
 
                 <ImageButton
-                    android:id="@+id/btnStop"
+                    android:id="@+id/btnNext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -94,7 +94,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvProgress"
+                    android:id="@+id/mTvProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -106,7 +106,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/tvTotalProgress"
+                    android:id="@+id/mTvTotalProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
