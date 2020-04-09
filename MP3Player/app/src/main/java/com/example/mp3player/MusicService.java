@@ -2,9 +2,13 @@ package com.example.mp3player;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 
 public class MusicService extends Service {
+
+    MediaPlayer mediaPlayer;
+
     public MusicService() {
     }
 
@@ -17,6 +21,9 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mediaPlayer=new MediaPlayer();
+        mediaPlayer.setDataSource();
+
     }
 
     @Override

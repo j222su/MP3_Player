@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,10 +32,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MusicData musicData=new MusicData();
     static ImageView mImgAlbum;
     static TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
-    ImageButton btnPrevious, btnPlay, btnNext;
+    ImageButton btnPrevious, btnPlay_Pause, btnNext;
     SeekBar seekBar;
     Intent intent;
     int flag = 0;
+    private static final String TAG = "MP3입니다.";
 
 
     @Override
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvProgress=findViewById(R.id.mTvProgress);
         mTvTotalProgress=findViewById(R.id.mTvTotalProgress);
         btnPrevious=findViewById(R.id.btnPrevious);
-        btnPlay=findViewById(R.id.btnPlay);
+        btnPlay_Pause=findViewById(R.id.btnPlay_Pause);
         btnNext=findViewById(R.id.btnNext);
         seekBar=findViewById(R.id.seekBar);
         ActivityCompat.requestPermissions(this, new String[]
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         intent=new Intent(getApplicationContext(), MusicService.class);
-        btnPlay.setOnClickListener(this);
+        btnPlay_Pause.setOnClickListener(this);
         btnPrevious.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
         Cursor cursor = contentResolver.query(uri, null, selection, null, sortOrder);
         cursor.moveToFirst();
-        System.out.println("음악파일 개수 = " + cursor.getCount());
+        Log.d(TAG, "getMusicList() 음악파일개수 : "+cursor.getCount());
         if (cursor != null && cursor.getCount() > 0) {
             do {
                 musicData.setId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID)));
@@ -88,9 +92,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 musicData.setTitle(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)));
                 musicData.setArtist(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)));
                 musicData.setTotal(cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
+                musicData.setDataPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
+                Log.d(TAG, "getMusicList() 경로 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
                 list.add(musicData);
             } while (cursor.moveToNext());
         }
+
         cursor.close();
 
     }
@@ -98,12 +105,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnPlay :
+            case R.id.btnPlay_Pause :
                 if(flag==0) {
-                    btnPlay.setImageResource(R.mipmap.pause);
+                    intent.putExtra("data_path", musicData.getDataPath());
+                    btnPlay_Pause.setImageResource(R.mipmap.pause);
                     startService(intent);
                 } else {
-                    btnPlay.setImageResource(R.mipmap.play);
+                    btnPlay_Pause.setImageResource(R.mipmap.play);
                     stopService(intent);
                     flag=0;
                 }

@@ -8,16 +8,18 @@ public class MusicData {
     private String title;
     private String artist;
     private long total;
+    private String dataPath;
 
     public MusicData() {
     }
 
-    public MusicData(String id, String albumId, String title, String artist, long total) {
+    public MusicData(String id, String albumId, String title, String artist, long total, String dataPath) {
         this.id = id;
         this.albumId = albumId;
         this.title = title;
         this.artist = artist;
         this.total = total;
+        this.dataPath = dataPath;
     }
 
     public String getId() {
@@ -58,6 +60,14 @@ public class MusicData {
 
     public void setTotal(long total) {
         this.total = total;
+    }
+
+    public String getDataPath() {
+        return dataPath;
+    }
+
+    public void setDataPath(String dataPath) {
+        this.dataPath = dataPath;
     }
 }
 
