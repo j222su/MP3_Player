@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -17,7 +19,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private ArrayList<MusicData> list=new ArrayList<>();
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     static TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
     ImageButton btnPrevious, btnPlay, btnNext;
     SeekBar seekBar;
+    Intent intent;
 
 
     @Override
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnPrevious=findViewById(R.id.btnPrevious);
         btnPlay=findViewById(R.id.btnPlay);
         btnNext=findViewById(R.id.btnNext);
+        seekBar=findViewById(R.id.seekBar);
         ActivityCompat.requestPermissions(this, new String[]
                 {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
 
@@ -55,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
         musicAdapter = new MusicAdapter(R.layout.list_item, list);
         recyclerView.setAdapter(musicAdapter);
+
+
+        intent=new Intent(getApplicationContext(), MusicService.class);
+        btnPlay.setOnClickListener(this);
+        btnPrevious.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
 
 
 
@@ -84,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnPlay :
+                btnPlay.setImageResource(R.mipmap.pause);
+                break;
+        }
+    }
 }
 
 
