@@ -5,8 +5,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SeekBar seekBar;
     Intent intent;
     int flag = 0;
+    BroadcastReceiver bcr;
     private static final String TAG = "MP3입니다.";
 
 
@@ -71,7 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPrevious.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
-
+        bcr=new MusicBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        this.registerReceiver(bcr, intentFilter);
 
     }
 

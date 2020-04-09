@@ -1,6 +1,7 @@
 package com.example.mp3player;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class MusicService extends Service {
 
     MediaPlayer mediaPlayer;
+    BroadcastReceiver bcr;
     private static final String TAG = "MP3입니다.";
 
     @Override
@@ -27,6 +29,9 @@ public class MusicService extends Service {
         Log.d(TAG, "Service-onCreate()");
         mediaPlayer=new MediaPlayer();
         Log.d(TAG, "Service-new MediaPlayer()");
+        bcr=new MusicBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        this.registerReceiver(bcr, intentFilter);
     }
 
     @Override
@@ -37,6 +42,8 @@ public class MusicService extends Service {
         mediaPlayer.start();
         Log.d(TAG, "Service-mediaPlayer.start()");
 
+
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -45,5 +52,7 @@ public class MusicService extends Service {
         Log.d(TAG, "Service-onDestroy()");
         super.onDestroy();
         mediaPlayer.stop();
+        unregisterReceiver(bcr);
+
     }
 }
