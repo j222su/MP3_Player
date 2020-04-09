@@ -12,9 +12,6 @@ import java.io.IOException;
 public class MusicService extends Service {
 
     MediaPlayer mediaPlayer;
-
-
-
     private static final String TAG = "MP3입니다.";
 
     @Override
@@ -29,11 +26,6 @@ public class MusicService extends Service {
         Log.d(TAG, "Service-onCreate()");
         mediaPlayer=new MediaPlayer();
         Log.d(TAG, "Service-new MediaPlayer()");
-
-
-//        Uri uriDataPath=Uri.parse(String.valueOf(dataSource));
-
-
     }
 
     @Override
@@ -41,6 +33,9 @@ public class MusicService extends Service {
         Log.d(TAG, "Service-onStartCommand()");
         String dataSource = intent.getStringExtra("data_path");
         Log.d(TAG, "Service-데이터경로:"+dataSource);
+        mediaPlayer.start();
+        Log.d(TAG, "Service-mediaPlayer.start()");
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -48,5 +43,6 @@ public class MusicService extends Service {
     public void onDestroy() {
         Log.d(TAG, "Service-onDestroy()");
         super.onDestroy();
+        mediaPlayer.stop();
     }
 }
