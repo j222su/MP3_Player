@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         musicAdapter = new MusicAdapter(R.layout.list_item, list);
         recyclerView.setAdapter(musicAdapter);
-
-
         intent=new Intent(getApplicationContext(), MusicService.class);
+
+
         btnPlay_Pause.setOnClickListener(this);
         btnPrevious.setOnClickListener(this);
         btnNext.setOnClickListener(this);
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 musicData.setTotal(cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
                 musicData.setDataPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
                 Log.d(TAG, "getMusicList() 경로 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
+                Log.d(TAG, "getMusicList() 앨범아이디 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
                 list.add(musicData);
             } while (cursor.moveToNext());
         }
@@ -108,8 +109,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnPlay_Pause :
                 if(flag==0) {
                     intent.putExtra("data_path", musicData.getDataPath());
+                    Log.d(TAG, "플레이버튼 클릭 경로확인 :"+musicData.getDataPath());
+                    Log.d(TAG, "플레이버튼 클릭 : 2값 보내기");
                     btnPlay_Pause.setImageResource(R.mipmap.pause);
                     startService(intent);
+                    Log.d(TAG, "플레이버튼 클릭 : startService(intent)");
+                    flag=1;
                 } else {
                     btnPlay_Pause.setImageResource(R.mipmap.play);
                     stopService(intent);

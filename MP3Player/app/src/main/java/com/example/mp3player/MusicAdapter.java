@@ -3,11 +3,13 @@ package com.example.mp3player;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     String sSinger;
     String sTitle;
     String sAlbumImage;
+    static String sDataPath;
+    private static final String TAG="MP3입니다.";
 
     public MusicAdapter(int layout, ArrayList<MusicData> list) {
         this.layout = layout;
@@ -49,7 +53,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     @Override
     public void onBindViewHolder(@NonNull final MusicViewHolder holder, final int position) {
 //        list=new ArrayList<MusicData>();
-//        Bitmap albumImage = getAlbumImage(, Integer.parseInt(list.get(position).getAlbumId()), 170);
+//        Bitmap albumImage = getAlbumImage(this, Integer.parseInt(list.get(position).getAlbumId()), 170);
 //        holder.imgAlbum.setImageBitmap(albumImage);
 
         final String albumId=list.get(position).getAlbumId();
@@ -69,11 +73,15 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
                 sAlbumImage=list.get(position).getAlbumId();
                 sSinger=list.get(position).getArtist();
                 sTitle=list.get(position).getTitle();
+                sDataPath=list.get(position).getDataPath();
 
                 MainActivity.mImgAlbum.setImageURI(Uri.parse(albumId));
                 MainActivity.mTvSinger.setText(sSinger);
                 MainActivity.mTvTitle.setText(sTitle);
                 MainActivity.mTvTotalProgress.setText(time);
+
+                Log.d(TAG, "MusicAdapter 아이템 경로 : "+sDataPath);
+                Log.d(TAG, "MusicAdapter-앨범 아이디 :"+list.get(position).getAlbumId());
             }
         });
     }
