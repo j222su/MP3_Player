@@ -29,6 +29,9 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     int layout;
     public ArrayList<MusicData>list=new ArrayList<MusicData>();
     SimpleDateFormat simpleDateFormat=new SimpleDateFormat("mm:ss");
+    String sSinger;
+    String sTitle;
+    String sAlbumImage;
 
     public MusicAdapter(int layout, ArrayList<MusicData> list) {
         this.layout = layout;
@@ -49,13 +52,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 //        Bitmap albumImage = getAlbumImage(, Integer.parseInt(list.get(position).getAlbumId()), 170);
 //        holder.imgAlbum.setImageBitmap(albumImage);
 
-        String albumId=list.get(position).getAlbumId();
+        final String albumId=list.get(position).getAlbumId();
         holder.imgAlbum.setImageURI(Uri.parse(albumId));
         holder.tvSinger.setText(list.get(position).getArtist());
         holder.tvTitle.setText(list.get(position).getTitle());
 
 
-        String time=simpleDateFormat.format(list.get(position).getTotal());
+        final String time=simpleDateFormat.format(list.get(position).getTotal());
         holder.tvTotal.setText(time);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +66,14 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
             public void onClick(View v) {
                 int positionNum=holder.getAdapterPosition();
                 Toast.makeText(v.getContext(), positionNum+list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                sAlbumImage=list.get(position).getAlbumId();
+                sSinger=list.get(position).getArtist();
+                sTitle=list.get(position).getTitle();
+
+                MainActivity.mImgAlbum.setImageURI(Uri.parse(albumId));
+                MainActivity.mTvSinger.setText(sSinger);
+                MainActivity.mTvTitle.setText(sTitle);
+                MainActivity.mTvTotalProgress.setText(time);
             }
         });
     }
@@ -96,12 +107,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 //    private static final BitmapFactory.Options options = new BitmapFactory.Options();
 //    private static Bitmap getAlbumImage(Context context, int album_id, int MAX_IMAGE_SIZE) {
 //        // NOTE: There is in fact a 1 pixel frame in the ImageView used to
-//        // display this drawable. Take it into account now, so we don't have to
-//        // scale later.
-//        ContentResolver res = context.getContentResolver();
-//        Uri uri = Uri.parse("content://media/external/audio/albumart/" + album_id);
-//        if (uri != null) {
-//            ParcelFileDescriptor fd = null;
+//        // display this drawable. Take it into account now, so we don't have to0
 //            try {
 //                fd = res.openFileDescriptor(uri, "r");
 //

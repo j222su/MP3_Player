@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private MusicAdapter musicAdapter;
     MusicData musicData=new MusicData();
-    ImageView mImgAlbum;
-    TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
+    static ImageView mImgAlbum;
+    static TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
     ImageButton btnPrevious, btnPlay, btnNext;
     SeekBar seekBar;
 
