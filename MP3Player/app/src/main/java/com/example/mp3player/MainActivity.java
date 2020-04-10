@@ -2,14 +2,17 @@ package com.example.mp3player;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -22,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -53,16 +57,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvSinger=findViewById(R.id.mTvSinger);
         mTvTitle=findViewById(R.id.mTvTitle);
         mTvProgress=findViewById(R.id.mTvProgress);
+
         mTvTotalProgress=findViewById(R.id.mTvTotalProgress);
         btnPrevious=findViewById(R.id.btnPrevious);
         btnPlay_Pause=findViewById(R.id.btnPlay_Pause);
         btnNext=findViewById(R.id.btnNext);
         seekBar=findViewById(R.id.seekBar);
-        ActivityCompat.requestPermissions(this, new String[]
-                {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            //권한이 허용되지 않았을 때
+            Toast.makeText(this, "권한 허용해주세요", Toast.LENGTH_LONG).show();
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                //사용자에게 설명
+                //사용자의 응답을 기다리는 스레드
+                //설명 후 다시 권한 요청
+                Toast.makeText(this, "설명", Toast.LENGTH_LONG).show();
+            } else {
+                //사용권한 요청
+                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
+
+            }
+        } else {
+            //이미 권한이 부여되었을 때
+            Toast.makeText(this, "권한 허용되어있음", Toast.LENGTH_LONG).show();
+        }
+
+//        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
 
         getMusicList();
-        
+
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 

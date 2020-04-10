@@ -29,7 +29,8 @@ import java.util.ArrayList;
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
 
     int layout;
-    public ArrayList<MusicData>list=new ArrayList<MusicData>();
+    public ArrayList<MusicData>
+            list=new ArrayList<MusicData>();
     SimpleDateFormat simpleDateFormat=new SimpleDateFormat("mm:ss");
     String sSinger;
     String sTitle;
@@ -60,6 +61,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         holder.imgAlbum.setImageURI(Uri.parse(albumId));
         holder.tvSinger.setText(list.get(position).getArtist());
         holder.tvTitle.setText(list.get(position).getTitle());
+//        Log.d(TAG, "")
 
 
         final String time=simpleDateFormat.format(list.get(position).getTotal());
