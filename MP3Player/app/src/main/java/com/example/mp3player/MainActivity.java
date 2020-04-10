@@ -1,5 +1,6 @@
 package com.example.mp3player;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -48,6 +49,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MODE_PRIVATE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -66,25 +91,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //권한이 허용되지 않았을 때
-            Toast.makeText(this, "권한 허용해주세요", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "권한 허용해주세요", Toast.LENGTH_LONG).show();
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 //사용자에게 설명
                 //사용자의 응답을 기다리는 스레드
                 //설명 후 다시 권한 요청
-                Toast.makeText(this, "설명", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "설명", Toast.LENGTH_LONG).show();
             } else {
                 //사용권한 요청
                 ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
-
             }
         } else {
             //이미 권한이 부여되었을 때
-            Toast.makeText(this, "권한 허용되어있음", Toast.LENGTH_LONG).show();
+            getMusicList();
+//            Toast.makeText(this, "권한 허용되어있음", Toast.LENGTH_LONG).show();
         }
 
-//        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
 
-        getMusicList();
+
+
 
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
