@@ -64,25 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNext=findViewById(R.id.btnNext);
         seekBar=findViewById(R.id.seekBar);
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //권한이 허용되지 않았을 때
-            Toast.makeText(this, "권한 허용해주세요", Toast.LENGTH_LONG).show();
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                //사용자에게 설명
-                //사용자의 응답을 기다리는 스레드
-                //설명 후 다시 권한 요청
-                Toast.makeText(this, "설명", Toast.LENGTH_LONG).show();
-            } else {
-                //사용권한 요청
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
-
-            }
-        } else {
-            //이미 권한이 부여되었을 때
-            Toast.makeText(this, "권한 허용되어있음", Toast.LENGTH_LONG).show();
-        }
-
-//        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE);
+        MusicPermission.getInstance().permissionCheck(this, this);
 
         getMusicList();
 
