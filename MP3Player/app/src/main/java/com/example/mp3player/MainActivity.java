@@ -32,11 +32,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private ArrayList<MusicData> list=new ArrayList<>();
+//    private ArrayList<MusicData> list=new ArrayList<>();
     //new ArrayList<>();로 객체를 생성해줘야 함 그렇지 않으면 객체를 생성하지 못해서 list에 데이터를 추가할 수 없다...
     private LinearLayoutManager linearLayoutManager;
     private MusicAdapter musicAdapter;
-    MusicData musicData=new MusicData();
+//    MusicData musicData=new MusicData();
+    PickMusicData pickMusicData = new PickMusicData();
     static ImageView mImgAlbum;
     static TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
     ImageButton btnPrevious, btnPlay_Pause, btnNext;
@@ -65,13 +66,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         seekBar=findViewById(R.id.seekBar);
 
         MusicPermission.getInstance().permissionCheck(this, this);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        getMusicList();
+//        getMusicList();
+
+        pickMusicData.getMusicDataList();
 
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        musicAdapter = new MusicAdapter(R.layout.list_item, list);
+        musicAdapter = new MusicAdapter(R.layout.list_item, pickMusicData.getList());
         recyclerView.setAdapter(musicAdapter);
         intent=new Intent(getApplicationContext(), MusicService.class);
 
@@ -86,33 +94,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void getMusicList() {
-        ContentResolver contentResolver = getContentResolver();
-        // 음악 앱의 데이터베이스에 접근해서 mp3 정보들을 가져온다.
-
-        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
-        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
-        Cursor cursor = contentResolver.query(uri, null, selection, null, sortOrder);
-        cursor.moveToFirst();
-        Log.d(TAG, "getMusicList() 음악파일개수 : "+cursor.getCount());
-        if (cursor != null && cursor.getCount() > 0) {
-            do {
-                musicData.setId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID)));
-                musicData.setAlbumId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
-                musicData.setTitle(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)));
-                musicData.setArtist(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)));
-                musicData.setTotal(cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
-                musicData.setDataPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
-                Log.d(TAG, "getMusicList() 경로 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
-                Log.d(TAG, "getMusicList() 앨범아이디 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
-                list.add(musicData);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-
-    }
+//    private void getMusicList() {
+//        ContentResolver contentResolver = getContentResolver();
+//        // 음악 앱의 데이터베이스에 접근해서 mp3 정보들을 가져온다.
+//
+//        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+//        String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
+//        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
+//        Cursor cursor = contentResolver.query(uri, null, selection, null, sortOrder);
+//        cursor.moveToFirst();
+//        Log.d(TAG, "getMusicList() 음악파일개수 : "+cursor.getCount());
+//        if (cursor != null && cursor.getCount() > 0) {
+//            do {
+//                musicData.setId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID)));
+//                musicData.setAlbumId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
+//                musicData.setTitle(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)));
+//                musicData.setArtist(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)));
+//                musicData.setTotal(cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)));
+//                musicData.setDataPath(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
+//                Log.d(TAG, "getMusicList() 경로 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)));
+//                Log.d(TAG, "getMusicList() 앨범아이디 : "+cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
+//                list.add(musicData);
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//
+//    }
 
 
     @Override
@@ -120,8 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btnPlay_Pause :
                 if(flag==0) {
-                    intent.putExtra("data_path", musicData.getDataPath());
-                    Log.d(TAG, "플레이버튼 클릭 경로확인 :"+musicData.getDataPath());
+                    intent.putExtra("data_path", pickMusicData.musicData.getDataPath());
+                    Log.d(TAG, "플레이버튼 클릭 경로확인 :"+pickMusicData.musicData.getDataPath());
                     btnPlay_Pause.setImageResource(R.mipmap.pause);
                     startService(intent);
                     Log.d(TAG, "플레이버튼 클릭 : startService(intent)");
