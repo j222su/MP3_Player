@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         MusicPermission.getInstance().permissionCheck(this, this);
+        musicAdapter.notifyDataSetChanged();
+
 
         btnPlay_Pause.setOnClickListener(this);
         btnPrevious.setOnClickListener(this);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         this.registerReceiver(bcr, intentFilter);
 
-        pickMusicData.getMusicDataList(this);
+//        pickMusicData.getMusicDataList(this);
     }
 
     @Override
