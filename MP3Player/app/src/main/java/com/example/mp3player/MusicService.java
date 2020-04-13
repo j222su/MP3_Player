@@ -52,7 +52,7 @@ public class MusicService extends Service {
         Log.d(TAG, "Service-onDestroy()");
         super.onDestroy();
         mediaPlayer.stop();
-        unregisterReceiver(bcr);
+//        unregisterReceiver(bcr);
 
     }
 }

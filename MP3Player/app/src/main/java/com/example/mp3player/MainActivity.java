@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -87,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     stopService(intent);
                     Log.d(TAG, "pause버튼 클릭 : stopService()");
                     flag=0;
-                    Log.d(TAG, "pause버튼 클릭 flag 확인 : stopService()"+flag);
                 }
 
                 break;
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        stopService(intent);
+//        stopService(intent);
         Log.d(TAG, "Main onDestroy()--: stopService()");
         super.onDestroy();
     }
