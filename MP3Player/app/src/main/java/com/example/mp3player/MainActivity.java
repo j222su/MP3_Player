@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-//                        PickMusicData pickMusicData=new PickMusicData();
                         pickMusicData.getMusicDataList(this);
                     Log.d(TAG, "onRequestPermissionsResult() getMusicDataList()");
                 } else {
@@ -56,9 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 

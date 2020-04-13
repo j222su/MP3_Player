@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class PickMusicData {
     public static ArrayList<MusicData> list=new ArrayList<>();
-    MusicData musicData=new MusicData();
     public static final String TAG="MP3입니다.";
 //    Context context;
 
@@ -33,6 +32,7 @@ public class PickMusicData {
         Log.d(TAG, "getMusicList() 음악파일개수 : "+cursor.getCount());
         if (cursor != null && cursor.getCount() > 0) {
             do {
+                MusicData musicData=new MusicData();
                 musicData.setId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID)));
                 musicData.setAlbumId(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)));
                 musicData.setTitle(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)));
