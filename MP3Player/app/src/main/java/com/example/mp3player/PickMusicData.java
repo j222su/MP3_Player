@@ -1,5 +1,6 @@
 package com.example.mp3player;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,20 +11,17 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class PickMusicData {
-    private ArrayList<MusicData> list;
-    MusicData musicData;
+    public static ArrayList<MusicData> list=new ArrayList<>();
+    MusicData musicData=new MusicData();
     public static final String TAG="MP3입니다.";
-    Context context;
+//    Context context;
 
     public PickMusicData() {
-        list=new ArrayList<>();
+
     }
 
-    public ArrayList<MusicData> getList() {
-        return list;
-    }
-
-    public void getMusicDataList() {
+    public void getMusicDataList(Context context) {
+        Log.d(TAG, "getMusicDataList()");
         ContentResolver contentResolver = context.getContentResolver();
         // 음악 앱의 데이터베이스에 접근해서 mp3 정보들을 가져온다.
 
