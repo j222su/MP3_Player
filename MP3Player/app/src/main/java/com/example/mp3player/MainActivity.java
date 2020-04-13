@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayoutManager linearLayoutManager;
     private MusicAdapter musicAdapter;
     PickMusicData pickMusicData=new PickMusicData();
+    MusicData musicData=new MusicData();
     static ImageView mImgAlbum;
     static TextView mTvSinger, mTvTitle, mTvProgress, mTvTotalProgress;
     ImageButton btnPrevious, btnPlay_Pause, btnNext;
@@ -76,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        musicAdapter = new MusicAdapter(R.layout.list_item, PickMusicData.list);
+        musicAdapter = new MusicAdapter(R.layout.list_item, pickMusicData.getList());
         recyclerView.setAdapter(musicAdapter);
-        intent=new Intent(getApplicationContext(), MusicService.class);
+
 
         MusicPermission.getInstance().permissionCheck(this, this);
 
@@ -100,15 +101,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btnPlay_Pause :
                 if(flag==0) {
-//                    intent.putExtra("data_path", pickMusicData.musicData.getDataPath());
-//                    Log.d(TAG, "플레이버튼 클릭 경로확인 :"+pickMusicData.musicData.getDataPath());
+                    intent=new Intent(getApplicationContext(), MusicService.class);
+                    intent.putExtra("data_path", MusicAdapter.sDataPath);
+                    Log.d(TAG, "플레이버튼 클릭 경로확인 :"+MusicAdapter.sDataPath);
                     btnPlay_Pause.setImageResource(R.mipmap.pause);
                     startService(intent);
                     Log.d(TAG, "플레이버튼 클릭 : startService(intent)");
                     flag=1;
                 } else {
+                    Log.d(TAG, "pause버튼 클릭");
                     btnPlay_Pause.setImageResource(R.mipmap.play);
                     stopService(intent);
+                    Log.d(TAG, "pause버튼 클릭 : stopService()");
                     flag=0;
                 }
 
@@ -124,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         stopService(intent);
+        Log.d(TAG, "Main onDestroy()--: stopService()");
         super.onDestroy();
     }
 }

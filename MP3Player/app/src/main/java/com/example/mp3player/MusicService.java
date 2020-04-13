@@ -27,11 +27,12 @@ public class MusicService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service-onCreate()");
-        mediaPlayer=new MediaPlayer();
-        Log.d(TAG, "Service-new MediaPlayer()");
-        bcr=new MusicBroadcastReceiver();
-        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        this.registerReceiver(bcr, intentFilter);
+//        bcr=new MusicBroadcastReceiver();
+//        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+//        this.registerReceiver(bcr, intentFilter);
+
+//        mediaPlayer=MediaPlayer.create(this, );
+//        mediaPlayer.setLooping(false);
     }
 
     @Override
@@ -39,13 +40,12 @@ public class MusicService extends Service {
         Log.d(TAG, "Service-onStartCommand()");
         String dataSource = intent.getStringExtra("data_path");
         Log.d(TAG, "Service-데이터경로:"+dataSource);
+        mediaPlayer=MediaPlayer.create(this, Uri.parse(dataSource));
         mediaPlayer.start();
         Log.d(TAG, "Service-mediaPlayer.start()");
-
-
-
         return super.onStartCommand(intent, flags, startId);
     }
+
 
     @Override
     public void onDestroy() {

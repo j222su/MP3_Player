@@ -11,12 +11,15 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class PickMusicData {
-    public static ArrayList<MusicData> list=new ArrayList<>();
+    private ArrayList<MusicData> list=new ArrayList<>();
     public static final String TAG="MP3입니다.";
-//    Context context;
 
     public PickMusicData() {
 
+    }
+
+    public ArrayList<MusicData> getList() {
+        return list;
     }
 
     public void getMusicDataList(Context context) {

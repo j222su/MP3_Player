@@ -16,7 +16,11 @@
         <service
             android:name=".MusicService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.mp3player"/>
+            </intent-filter>
+        </service>
         <!--        enabled:"true" : 시스템이 서비스를 인스턴스화 할 수 있는지 여부를 나타낸다.-->
         <!--        exported:"true" : 다른 앱이나 시스템에서 이 서비스를 접근 할 수 있다.-->
         <!--        exported:"false" : 앱 내부에서만 실행 가능하다.-->

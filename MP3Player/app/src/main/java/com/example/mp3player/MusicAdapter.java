@@ -29,8 +29,7 @@ import java.util.ArrayList;
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
 
     int layout;
-    public ArrayList<MusicData>
-            list=new ArrayList<MusicData>();
+    private ArrayList<MusicData> list;
     SimpleDateFormat simpleDateFormat=new SimpleDateFormat("mm:ss");
     String sSinger;
     String sTitle;
