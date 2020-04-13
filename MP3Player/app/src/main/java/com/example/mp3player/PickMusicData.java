@@ -19,20 +19,8 @@ public class PickMusicData {
         list=new ArrayList<>();
     }
 
-    public PickMusicData(MusicData musicData) {
-        this.musicData = musicData;
-    }
-
-    public PickMusicData(ArrayList<MusicData> list) {
-        this.list = list;
-    }
-
     public ArrayList<MusicData> getList() {
         return list;
-    }
-
-    public void setList(ArrayList<MusicData> list) {
-        this.list = list;
     }
 
     public void getMusicDataList() {
