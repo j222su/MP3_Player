@@ -7,11 +7,14 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class MusicPermission {
+public class MusicPermission extends AppCompatActivity {
 
+    PickMusicData pickMusicData=new PickMusicData();
     private static final String TAG="MP3입니다.";
     private static final int REQUEST_CODE=100;
     private static final String[] REQUIRED_PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -47,5 +50,25 @@ public class MusicPermission {
 //            Toast.makeText(context, "권한 허용되어있음", Toast.LENGTH_LONG).show();
         }
         return;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult()");
+        switch (requestCode) {
+            case 100: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickMusicData.getMusicDataList(this);
+                    Log.d(TAG, "onRequestPermissionsResult() getMusicDataList()");
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Log.d(TAG, "퍼미션거부");
+                }
+                return;
+            }
+        }
     }
 }

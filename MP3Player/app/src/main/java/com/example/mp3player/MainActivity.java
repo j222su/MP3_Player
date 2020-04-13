@@ -1,16 +1,12 @@
 package com.example.mp3player;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,27 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int flag = 0;
     BroadcastReceiver bcr;
     private static final String TAG = "MP3입니다.";
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "onRequestPermissionsResult()");
-        switch (requestCode) {
-            case 100: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        pickMusicData.getMusicDataList(this);
-                    Log.d(TAG, "onRequestPermissionsResult() getMusicDataList()");
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Log.d(TAG, "퍼미션거부");
-                }
-                return;
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.registerReceiver(bcr, intentFilter);
 
         pickMusicData.getMusicDataList(this);
-        Log.d(TAG, "list에 담겨있는지 확인-----------");
-
     }
 
     @Override
@@ -114,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     stopService(intent);
                     Log.d(TAG, "pause버튼 클릭 : stopService()");
                     flag=0;
+                    Log.d(TAG, "pause버튼 클릭 flag 확인 : stopService()"+flag);
                 }
 
                 break;
