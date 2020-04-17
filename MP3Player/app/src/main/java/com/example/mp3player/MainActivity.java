@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         this.registerReceiver(bcr, intentFilter);
 
-//        pickMusicData.getMusicDataList(this);
+        pickMusicData.getMusicDataList(this);
     }
 
     @Override

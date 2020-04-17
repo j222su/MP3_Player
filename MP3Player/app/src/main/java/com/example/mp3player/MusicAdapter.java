@@ -2,6 +2,7 @@ package com.example.mp3player;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -57,7 +58,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 //        holder.imgAlbum.setImageBitmap(albumImage);
 
         final String albumId=list.get(position).getAlbumId();
-        holder.imgAlbum.setImageURI(Uri.parse(albumId));
+
+        if(holder.imgAlbum!=null) {
+            final Uri artworkUri = Uri.parse("content://media/external/audio/albumart");
+            Uri uri = ContentUris.withAppendedId(artworkUri, Long.parseLong(list.get(position).getAlbumId()));
+            holder.imgAlbum.setImageURI(uri);
+        }
+        
         holder.tvSinger.setText(list.get(position).getArtist());
         holder.tvTitle.setText(list.get(position).getTitle());
 //        Log.d(TAG, "")
